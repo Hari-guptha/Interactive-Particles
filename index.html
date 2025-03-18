@@ -18,10 +18,46 @@
             width: 100vw;
             height: 100vh;
         }
+        #loading {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-family: Arial, sans-serif;
+            display: none;
+        }
+        #webgl-error {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            display: none;
+        }
     </style>
 </head>
 <body>
     <canvas id="canvas"></canvas>
+    <div id="loading">Loading...</div>
+    <div id="webgl-error">
+        Your browser doesn't support WebGL.<br>
+        Please try using a modern browser like Chrome, Firefox, or Edge.
+    </div>
+    <script>
+        // Check WebGL support before loading main script
+        window.addEventListener('load', function() {
+            const canvas = document.querySelector('canvas');
+            const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+            if (!gl) {
+                document.getElementById('webgl-error').style.display = 'block';
+            } else {
+                document.getElementById('loading').style.display = 'none';
+            }
+        });
+    </script>
     <script src="particles.js"></script>
 </body>
 </html>
